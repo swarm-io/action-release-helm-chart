@@ -35,7 +35,7 @@ runs:
       if: github.ref == 'main' && steps.exists.outputs.exists == 'true'
       uses: dawidd6/action-delete-branch@v3
       with:
-        github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
+        github_token: ${{ inputs.token }}
         branches: alpha
     - if: github.ref == 'main'
       name: Create new alpha branch
@@ -46,5 +46,5 @@ runs:
       name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
+        github_token: ${{ inputs.token }}
         branch: alpha

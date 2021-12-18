@@ -20,16 +20,17 @@ runs:
         GITHUB_TOKEN: ${{ inputs.token }}
     - if: github.ref == 'main'
       name: Check alpha branch existence
-        id: exists
-        run: |
-          if git branch -r | grep -q 'origin/alpha$'
-          then
-          echo "alpha branch exists"
-          echo "::set-output name=exists::true"
-          else
-          echo "alpha branch does not exist"
-          echo "::set-output name=exists::false"
-          fi
+      id: exists
+      shell: bash
+      run: |
+        if git branch -r | grep -q 'origin/alpha$'
+        then
+        echo "alpha branch exists"
+        echo "::set-output name=exists::true"
+        else
+        echo "alpha branch does not exist"
+        echo "::set-output name=exists::false"
+        fi
     - name: Delete alpha branch
       if: github.ref == 'main' && steps.exists.outputs.exists == 'true'
       uses: dawidd6/action-delete-branch@v3
@@ -38,6 +39,7 @@ runs:
         branches: alpha
     - if: github.ref == 'main'
       name: Create new alpha branch
+      shell: bash
       run: |
         git checkout -b alpha
     - if: github.ref == 'main'

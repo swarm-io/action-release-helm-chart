@@ -1,21 +1,50 @@
-name: 'Hello World' # taken from https://docs.github.com/en/actions/creating-actions/creating-a-composite-action
-description: 'Greet someone'
+name: 'Release helm chart'
+description: 'Releases helm charts using semantic-release with the @swarm-io/release-config-helm release config. This action uses main and alpha branches and releases. This action deletes the alpha branch and re-creates it from main after a release from main'
 inputs:
-  who-to-greet:  # id of input
-    description: 'Who to greet'
-    required: true
-    default: 'World'
-outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-id }}
+  token:
+    description: github token to use for the release, if you want this to trigger other workflows such as flows on release created, pass in a PAT
+    required: false
+    default: ${{ github.token }}
 runs:
   using: "composite"
   steps:
-    - run: echo Hello ${{ inputs.who-to-greet }}.
+    - uses: crazy-max/ghaction-dump-context@v1
+    - uses: actions/checkout@v2
+      with:
+        ref: ${{ github.ref }} # use the ref, not the default, so we checkout the right branch
+    - id: semantic-release
+      uses: cycjimmy/semantic-release-action@v2
+      with:
+        extends: '@swarm-io/release-config-helm'
+      env:
+        GITHUB_TOKEN: ${{ inputs.token }}
+    - if: github.ref == 'main'
+      name: Check alpha branch existence
+      id: exists
       shell: bash
-    - id: random-number-generator
-      run: echo "::set-output name=random-id::$(echo $RANDOM)"
+      run: |
+        if git branch -r | grep -q 'origin/alpha$'
+        then
+        echo "alpha branch exists"
+        echo "::set-output name=exists::true"
+        else
+        echo "alpha branch does not exist"
+        echo "::set-output name=exists::false"
+        fi
+    - name: Delete alpha branch
+      if: github.ref == 'main' && steps.exists.outputs.exists == 'true'
+      uses: dawidd6/action-delete-branch@v3
+      with:
+        github_token: ${{ inputs.token }}
+        branches: alpha
+    - if: github.ref == 'main'
+      name: Create new alpha branch
       shell: bash
-    - run: ${{ github.action_path }}/goodbye.sh
-      shell: bash
+      run: |
+        git checkout -b alpha
+    - if: github.ref == 'main'
+      name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ inputs.token }}
+        branch: alpha

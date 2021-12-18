@@ -10,8 +10,8 @@ runs:
   steps:
     - uses: crazy-max/ghaction-dump-context@v1
     - uses: actions/checkout@v2
-    with:
-      ref: ${{ github.ref }} # use the ref, not the default, so we checkout the right branch
+      with:
+        ref: ${{ github.ref }} # use the ref, not the default, so we checkout the right branch
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:

@@ -1,0 +1,23 @@
+on:
+  push:
+    branches:
+      - main-fix-delete-alpha
+jobs:
+  test-delete-branch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          token: ${{ secrets.GIT_RUNNER_TOKEN }}
+      - name: Delete alpha branch
+        if: github.ref == 'main-fix-delete-alpha'
+        uses: dawidd6/action-delete-branch@v3
+        with:
+          github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
+          branches: alpha
+      - if: github.ref == 'main-fix-delete-alpha'
+        name: Create new alpha branch
+        shell: bash
+        run: |
+          git checkout -b alpha
+          git push --set-upstream origin alpha

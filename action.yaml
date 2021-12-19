@@ -21,6 +21,19 @@ runs:
       with:
         token: ${{ inputs.token }}
         include-admins: false
+    - name: Delete alpha branch
+      if: github.ref == 'main'
+      uses: dawidd6/action-delete-branch@v3
+      with:
+        github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
+        soft_fail: true
+        branches: alpha
+    - name: Create new alpha branch
+      if: github.ref == 'main'
+      shell: bash
+      run: |
+        git checkout -b alpha
+        git push --set-upstream origin alpha
     - id: semantic-release
       uses: cycjimmy/semantic-release-action@v2
       with:
@@ -32,33 +45,3 @@ runs:
       with:
         token: ${{ inputs.token }}
         include-admins: true
-    - if: github.ref == 'main'
-      name: Check alpha branch existence
-      id: exists
-      shell: bash
-      run: |
-        if git branch -r | grep -q 'origin/alpha$'
-        then
-        echo "alpha branch exists"
-        echo "::set-output name=exists::true"
-        else
-        echo "alpha branch does not exist"
-        echo "::set-output name=exists::false"
-        fi
-    - name: Delete alpha branch
-      if: github.ref == 'main' && steps.exists.outputs.exists == 'true'
-      uses: dawidd6/action-delete-branch@v3
-      with:
-        github_token: ${{ inputs.token }}
-        branches: alpha
-    - if: github.ref == 'main'
-      name: Create new alpha branch
-      shell: bash
-      run: |
-        git checkout -b alpha
-    - if: github.ref == 'main'
-      name: Push new alpha branch
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ inputs.token }}
-        branch: alpha

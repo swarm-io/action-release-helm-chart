@@ -1,3 +1,10 @@
+## [1.0.3](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.2...v1.0.3) (2021-12-19)
+
+
+### Bug Fixes
+
+* use input token not secret ([#5](https://github.com/swarm-io/action-release-helm-chart/issues/5)) ([a0b33eb](https://github.com/swarm-io/action-release-helm-chart/commit/a0b33eb40742ec8120fb06f9bac12888d8f65544))
+
 ## [1.0.2](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.1...v1.0.2) (2021-12-19)
 
 

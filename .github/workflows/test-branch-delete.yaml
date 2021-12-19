@@ -13,6 +13,7 @@ jobs:
         uses: dawidd6/action-delete-branch@v3
         with:
           github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
+          soft_fail: true
           branches: alpha
       - name: Create new alpha branch
         shell: bash

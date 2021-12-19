@@ -10,13 +10,11 @@ jobs:
         with:
           token: ${{ secrets.GIT_RUNNER_TOKEN }}
       - name: Delete alpha branch
-        if: github.ref == 'main-fix-delete-alpha'
         uses: dawidd6/action-delete-branch@v3
         with:
           github_token: ${{ secrets.GIT_RUNNER_TOKEN }}
           branches: alpha
-      - if: github.ref == 'main-fix-delete-alpha'
-        name: Create new alpha branch
+      - name: Create new alpha branch
         shell: bash
         run: |
           git checkout -b alpha

@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.1...v1.0.2) (2021-12-19)
+
+
+### Bug Fixes
+
+* Removed existence check, always delete alpha with soft fail if ref is main, always recreate alpha is ref is main. ([#4](https://github.com/swarm-io/action-release-helm-chart/issues/4)) ([cd85f1c](https://github.com/swarm-io/action-release-helm-chart/commit/cd85f1c561348846dcf027426617992801c26f46))
+
 ## [1.0.1](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.0...v1.0.1) (2021-12-19)
 
 

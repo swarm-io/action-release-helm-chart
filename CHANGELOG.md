@@ -1,3 +1,11 @@
+## [1.0.1](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.0...v1.0.1) (2021-12-19)
+
+
+### Bug Fixes
+
+* Add input to toggle include admins. ([#3](https://github.com/swarm-io/action-release-helm-chart/issues/3)) ([26c7d8a](https://github.com/swarm-io/action-release-helm-chart/commit/26c7d8a432074f2b70150da03cc7568f67071f1b))
+* Remove redundent ref on checkout. Use the passed in token on checkout, which will allow bypassing PR requirements if a PAT is passed in. ([#2](https://github.com/swarm-io/action-release-helm-chart/issues/2)) ([fb6e544](https://github.com/swarm-io/action-release-helm-chart/commit/fb6e544cbc96f2f752f7c7488ff7c79e9b869a23))
+
 # 1.0.0 (2021-12-18)
 
 

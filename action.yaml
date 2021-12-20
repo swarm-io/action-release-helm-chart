@@ -32,8 +32,8 @@ runs:
       if: github.ref == 'main' && always()
       shell: bash
       run: |
-        git checkout alpha
         git pull
+        git checkout alpha
         git merge --no-ff --strategy-option theirs -m "merge main to alpha after release" main
         git push
     - uses: swarm-io/action-branch-protection-bot@v1

@@ -32,7 +32,7 @@ runs:
       if: github.ref == 'main' && always()
       shell: bash
       run: |
-        gt fetch
+        git fetch
         git branch -D alpha
         git branch
         git checkout -b alpha origin/alpha

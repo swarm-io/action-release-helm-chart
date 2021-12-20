@@ -32,7 +32,7 @@ runs:
       shell: bash
       run: |
         git fetch
-        git checkout alpha
+        git checkout alpha origin/alpha
         git merge --no-ff --strategy-option theirs -m "merge main to alpha after release" main
         git push
     - uses: swarm-io/action-branch-protection-bot@v1

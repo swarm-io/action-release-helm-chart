@@ -26,6 +26,7 @@ runs:
         extends: '@swarm-io/release-config-helm'
       env:
         GITHUB_TOKEN: ${{ inputs.token }}
+    - uses: dawidd6/action-git-user-config@v1
     - name: merge main to alpha
       if: github.ref == 'main' && always()
       shell: bash

@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.3...v1.0.4) (2021-12-20)
+
+
+### Bug Fixes
+
+* Merge alpha ([bcb896d](https://github.com/swarm-io/action-release-helm-chart/commit/bcb896d6178d487a9ed5e203a138a2ca592140ff))
+
 ## [1.0.3](https://github.com/swarm-io/action-release-helm-chart/compare/v1.0.2...v1.0.3) (2021-12-19)
 
 

@@ -12,7 +12,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - uses: crazy-max/ghaction-dump-context@v1
     - uses: actions/checkout@v2
       with:
         token: ${{ inputs.token }}

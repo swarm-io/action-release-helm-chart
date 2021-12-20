@@ -32,6 +32,7 @@ runs:
       if: github.ref == 'main' && always()
       shell: bash
       run: |
+        git fetch
         git checkout alpha
         git merge --no-ff --strategy-option theirs -m "merge main to alpha after release" main
         git push alpha --set-upstream origin/alpha

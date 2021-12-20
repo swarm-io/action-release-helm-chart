@@ -33,9 +33,9 @@ runs:
       shell: bash
       run: |
         git branch
-        git fetch
-        git branch
         git checkout alpha
+        git branch
+        git status
         git merge --no-ff --strategy-option theirs -m "merge main to alpha after release" main
         git push
     - uses: swarm-io/action-branch-protection-bot@v1
